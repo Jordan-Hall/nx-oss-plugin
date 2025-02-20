@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import { join, dirname } from 'path';
 import { mkdirSync, rmSync } from 'fs';
 
-describe('nx-oss-plugins', () => {
+describe('Codeowners', () => {
   let projectDirectory: string;
 
   beforeAll(() => {
@@ -10,7 +10,7 @@ describe('nx-oss-plugins', () => {
 
     // The plugin has been built and published to a local registry in the jest globalSetup
     // Install the plugin built with the latest source code into the test repo
-    execSync(`npm install -D nx-oss-plugins@e2e`, {
+    execSync(`npm install -D @nx-oss-plugins/codeowners@e2e`, {
       cwd: projectDirectory,
       stdio: 'inherit',
       env: process.env,
@@ -29,7 +29,7 @@ describe('nx-oss-plugins', () => {
 
   it('should be installed', () => {
     // npm ls will fail if the package is not installed properly
-    execSync('npm ls nx-oss-plugins', {
+    execSync('npm ls @nx-oss-plugins/codeowners', {
       cwd: projectDirectory,
       stdio: 'inherit',
     });

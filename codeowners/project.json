@@ -1,7 +1,7 @@
 {
-  "name": "nx-oss-plugins",
+  "name": "Codeowners",
   "$schema": "../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "nx-oss-plugins/src",
+  "sourceRoot": "codeowners/src",
   "projectType": "library",
   "release": {
     "version": {
@@ -12,34 +12,34 @@
       }
     }
   },
-  "tags": [],
+  "tags": ["plugin", "unpowerpack"],
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/js:swc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/nx-oss-plugins",
-        "main": "nx-oss-plugins/src/index.ts",
-        "tsConfig": "nx-oss-plugins/tsconfig.lib.json",
+        "outputPath": "dist/codeowners",
+        "main": "codeowners/src/index.ts",
+        "tsConfig": "codeowners/tsconfig.lib.json",
         "assets": [
-          "nx-oss-plugins/*.md",
+          "codeowners/*.md",
           {
-            "input": "./nx-oss-plugins/src",
+            "input": "./codeowners/src",
             "glob": "**/!(*.ts)",
             "output": "./src"
           },
           {
-            "input": "./nx-oss-plugins/src",
+            "input": "./codeowners/src",
             "glob": "**/*.d.ts",
             "output": "./src"
           },
           {
-            "input": "./nx-oss-plugins",
+            "input": "./codeowners",
             "glob": "generators.json",
             "output": "."
           },
           {
-            "input": "./nx-oss-plugins",
+            "input": "./codeowners",
             "glob": "executors.json",
             "output": "."
           }
@@ -55,10 +55,10 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "nx-oss-plugins/jest.config.ts"
+        "reportsDirectory": "../coverage/codeowners"
       }
     }
   }
