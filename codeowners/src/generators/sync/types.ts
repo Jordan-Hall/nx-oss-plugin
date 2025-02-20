@@ -1,4 +1,8 @@
+export type CodeownersFormat = 'github' | 'bitbucket' | 'gitlab' | 'custom';
+
 export type NxReviewers = {
+  format?: CodeownersFormat,
+  outputPath?: string,
   rules: Rules[]
 }
 

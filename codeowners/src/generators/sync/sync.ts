@@ -4,7 +4,8 @@ import {
   Tree,
 } from '@nx/devkit';
 import * as path from 'path';
-import type { NxProjectReviewers, NxReviewers, PathRules, ProjectRule, Rules, TagRule } from './types';
+import type { NxProjectReviewers, NxReviewers, PathRules, ProjectRule, Rules, TagRule, CodeownersFormat } from './types';
+import { formatCodeOwners, getDefaultOutputPath } from './formatters';
 
 export function isProjectRule(rule: Rules): rule is ProjectRule {
   return (rule as ProjectRule).projectNames !== undefined;
@@ -18,12 +19,6 @@ export function isPathRule(rule: Rules): rule is PathRules {
   return (rule as PathRules).paths !== undefined;
 }
 
-function formatCodeOwners(rules: PathRules[]): string {
-  return rules.flatMap(rule =>
-    rule.paths.map(path => `${rule.comment ? '# ' + rule.comment + '\n' : '' }${path} ${rule.reviewers.join(' ')}\n`)
-  ).join('\n');
-
-}
 
 // Function to convert a string with `*` into a regular expression
 function wildcardToRegex(pattern: string): RegExp {
@@ -40,6 +35,12 @@ export async function syncGenerator(tree: Tree) {
 
   // First, read the NX Json for the reviewers.
   const reviewers: NxReviewers = nxJson['reviewers']
+
+  const format: CodeownersFormat =
+  reviewers.format || 'github';
+  const outputPath: string =
+    reviewers.outputPath ||
+    getDefaultOutputPath(format);
 
   // Split rules into path rules and others (tag and project rules)
   const { pathRules, otherRles } = reviewers.rules.reduce((prev: SplitRule, rule) => {
@@ -113,7 +114,7 @@ export async function syncGenerator(tree: Tree) {
   codeOwnerRules.push(...Array.from(mappedRules.values()));
 
   // now lets map this to codeowner file
-  tree.write('./CODEOWNERS', formatCodeOwners(codeOwnerRules))
+  tree.write(outputPath, formatCodeOwners(format, codeOwnerRules))
 }
 
 export default syncGenerator;
