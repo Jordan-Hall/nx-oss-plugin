@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-oss-plugins/codeowners": ["codeowners/src/index.ts"]
+      "@unpowerpacking/codeowners": ["codeowners/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

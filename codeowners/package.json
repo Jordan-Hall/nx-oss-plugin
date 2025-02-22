@@ -1,5 +1,5 @@
 {
-  "name": "@nx-oss-plugins/codeowners",
+  "name": "@unpowerpacking/codeowners",
   "version": "0.0.1",
   "type": "commonjs",
   "main": "./src/index.js",

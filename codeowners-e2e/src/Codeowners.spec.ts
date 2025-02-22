@@ -10,7 +10,7 @@ describe('Codeowners', () => {
 
     // The plugin has been built and published to a local registry in the jest globalSetup
     // Install the plugin built with the latest source code into the test repo
-    execSync(`npm install -D @nx-oss-plugins/codeowners@e2e`, {
+    execSync(`npm install -D @unpowerpacking/codeowners@e2e`, {
       cwd: projectDirectory,
       stdio: 'inherit',
       env: process.env,
@@ -29,7 +29,7 @@ describe('Codeowners', () => {
 
   it('should be installed', () => {
     // npm ls will fail if the package is not installed properly
-    execSync('npm ls @nx-oss-plugins/codeowners', {
+    execSync('npm ls @unpowerpacking/codeowners', {
       cwd: projectDirectory,
       stdio: 'inherit',
     });
